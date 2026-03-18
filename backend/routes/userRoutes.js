@@ -5,6 +5,7 @@ import {
   verifyUser,
 } from "../controllers/userControlers.js";
 import { isAuth } from "../middlewares/isAuth.js";
+import { getConversation } from "../controllers/chatControllers.js";
 
 const route = express.Router();
 

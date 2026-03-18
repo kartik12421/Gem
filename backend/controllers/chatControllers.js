@@ -49,11 +49,56 @@ export const addConversation = async (req, res) => {
 
     const updatedChat = await findByIdAndUpdate(
       req.params.id,
-      { latestMessage: req.body.answer },
+      { latestMessage: req.body.question },
       { new: true },
     );
 
-    res.json(conversation,updatedChat)
+    res.json(conversation, updatedChat);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
+export const getConversation = async (req, res) => {
+  try {
+    const conversation = await Conversation.find({ chat: req.params.id });
+
+    if (!conversation) {
+      res.status(404).json({
+        message: "no conversation found with this id",
+      });
+    }
+
+    res.json(conversation);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
+export const destroyChat = async (req, res) => {
+  try {
+    const chat = await Chat.findById(req.params.id);
+
+    if (!chat) {
+      req.status(404).json({
+        message: "chat not found with this id",
+      });
+    }
+
+    if (req.user.toString() !== req.user.id.toString()) {
+      req.status(404).json({
+        message: "Unauthorized",
+      });
+    }
+
+    await chat.deleteOne();
+    res.json({
+      message: "chat deleted",
+    });
   } catch (error) {
     res.status(500).json({
       message: error.message,

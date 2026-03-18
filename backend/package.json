@@ -1,4 +1,7 @@
 {
+  "engines": {
+    "node": "22.17.1"
+  },
   "name": "backend",
   "version": "1.0.0",
   "main": "index.js",
@@ -13,6 +16,7 @@
   "license": "ISC",
   "description": "A chatbot application using Gemini API key",
   "dependencies": {
+    "cors": "^2.8.6",
     "dotenv": "^17.3.1",
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.3",

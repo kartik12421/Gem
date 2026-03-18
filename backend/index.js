@@ -3,6 +3,7 @@ dotenv.config();
 
 import express from "express";
 import dbconnect from "./database/db.js";
+import cors from "cors";
 
 const app = express();
 
@@ -14,6 +15,7 @@ import { isAuth } from "./middlewares/isAuth.js";
 //using middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
 //routes
 app.use("/api/user", userrouter);
