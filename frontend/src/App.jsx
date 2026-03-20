@@ -1,7 +1,20 @@
-import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Verify from "./pages/Verify";
 
 const App = () => {
-  return <div className="text-red-600">App</div>;
+  return (
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/verify" element={<Verify />} />
+        </Routes>
+      </BrowserRouter>
+    </>
+  );
 };
 
 export default App;
