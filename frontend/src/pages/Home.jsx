@@ -1,11 +1,17 @@
-import React from 'react'
+import React, { useState } from "react";
+import Sidebar from "../components/sidebar";
 
 const Home = () => {
-  return (
-    <div>
-      Home
-    </div>
-  )
-}
+  const [isOpen, setIsOpen] = useState(false);
 
-export default Home
+  const toggleSidebar = () => {
+    setIsOpen(!isOpen);
+  };
+  return (
+    <div className="flex h-screen bg-gray-900 text-white">
+      <Sidebar isOpen={isOpen} toggleSidebar={toggleSidebar} />
+    </div>
+  );
+};
+
+export default Home;
