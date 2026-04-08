@@ -23,92 +23,15 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
       </div>
       <div>
         <p className="text-sm text-gray-400 mb-2">Recent Chats</p>
+        <div className="max-h-[500px] overflow-y-auto mb-20 md:mb-0 thin-scrollbar">
+          <button className="w-full text-left py-2 px-2 mt-2 bg-gray-700 hover:bg-gray-600 rounded">
+            Hello Gem, how's going on !!!
+          </button>
+        </div>
       </div>
-
-      <div className="max-h-[500px] overflow-y-auto mb-20 md:mb-0">
-        <button className="w-full text-left py-2 px-2 mt-2 bg-gray-700 hover:bg-gray-600 rounded">
-          Hello Gem, how's going on !!!
-        </button>
-        <button className="w-full text-left py-2 px-2 mt-2 bg-gray-700 hover:bg-gray-600 rounded">
-          Hello Gem, how's going on !!!
-        </button>
-        <button className="w-full text-left py-2 px-2 mt-2 bg-gray-700 hover:bg-gray-600 rounded">
-          Hello Gem, how's going on !!!
-        </button>
-        <button className="w-full text-left py-2 px-2 mt-2 bg-gray-700 hover:bg-gray-600 rounded">
-          Hello Gem, how's going on !!!
-        </button>
-        <button className="w-full text-left py-2 px-2 mt-2 bg-gray-700 hover:bg-gray-600 rounded">
-          Hello Gem, how's going on !!!
-        </button>
-        <button className="w-full text-left py-2 px-2 mt-2 bg-gray-700 hover:bg-gray-600 rounded">
-          Hello Gem, how's going on !!!
-        </button>
-        <button className="w-full text-left py-2 px-2 mt-2 bg-gray-700 hover:bg-gray-600 rounded">
-          Hello Gem, how's going on !!!
-        </button>
-        <button className="w-full text-left py-2 px-2 mt-2 bg-gray-700 hover:bg-gray-600 rounded">
-          Hello Gem, how's going on !!!
-        </button>
-        <button className="w-full text-left py-2 px-2 mt-2 bg-gray-700 hover:bg-gray-600 rounded">
-          Hello Gem, how's going on !!!
-        </button>
-        <button className="w-full text-left py-2 px-2 mt-2 bg-gray-700 hover:bg-gray-600 rounded">
-          Hello Gem, how's going on !!!
-        </button>
-        <button className="w-full text-left py-2 px-2 mt-2 bg-gray-700 hover:bg-gray-600 rounded">
-          Hello Gem, how's going on !!!
-        </button>
-        <button className="w-full text-left py-2 px-2 mt-2 bg-gray-700 hover:bg-gray-600 rounded">
-          Hello Gem, how's going on !!!
-        </button>
-        <button className="w-full text-left py-2 px-2 mt-2 bg-gray-700 hover:bg-gray-600 rounded">
-          Hello Gem, how's going on !!!
-        </button>
-        <button className="w-full text-left py-2 px-2 mt-2 bg-gray-700 hover:bg-gray-600 rounded">
-          Hello Gem, how's going on !!!
-        </button>
-        <button className="w-full text-left py-2 px-2 mt-2 bg-gray-700 hover:bg-gray-600 rounded">
-          Hello Gem, how's going on !!!
-        </button>
-        <button className="w-full text-left py-2 px-2 mt-2 bg-gray-700 hover:bg-gray-600 rounded">
-          Hello Gem, how's going on !!!
-        </button>
-        <button className="w-full text-left py-2 px-2 mt-2 bg-gray-700 hover:bg-gray-600 rounded">
-          Hello Gem, how's going on !!!
-        </button>
-        <button className="w-full text-left py-2 px-2 mt-2 bg-gray-700 hover:bg-gray-600 rounded">
-          Hello Gem, how's going on !!!
-        </button>
-        <button className="w-full text-left py-2 px-2 mt-2 bg-gray-700 hover:bg-gray-600 rounded">
-          Hello Gem, how's going on !!!
-        </button>
-        <button className="w-full text-left py-2 px-2 mt-2 bg-gray-700 hover:bg-gray-600 rounded">
-          Hello Gem, how's going on !!!
-        </button>
-        <button className="w-full text-left py-2 px-2 mt-2 bg-gray-700 hover:bg-gray-600 rounded">
-          Hello Gem, how's going on !!!
-        </button>
-        <button className="w-full text-left py-2 px-2 mt-2 bg-gray-700 hover:bg-gray-600 rounded">
-          Hello Gem, how's going on !!!
-        </button>
-        <button className="w-full text-left py-2 px-2 mt-2 bg-gray-700 hover:bg-gray-600 rounded">
-          Hello Gem, how's going on !!!
-        </button>
-        <button className="w-full text-left py-2 px-2 mt-2 bg-gray-700 hover:bg-gray-600 rounded">
-          Hello Gem, how's going on !!!
-        </button>
-        <button className="w-full text-left py-2 px-2 mt-2 bg-gray-700 hover:bg-gray-600 rounded">
-          Hello Gem, how's going on !!!
-        </button>
-        <button className="w-full text-left py-2 px-2 mt-2 bg-gray-700 hover:bg-gray-600 rounded">
-          Hello Gem, how's going on !!!
-        </button>
-        <button className="w-full text-left py-2 px-2 mt-2 bg-gray-700 hover:bg-gray-600 rounded">
-          Hello Gem, how's going on !!!
-        </button>
-        <button className="w-full text-left py-2 px-2 mt-2 bg-gray-700 hover:bg-gray-600 rounded">
-          Hello Gem, how's going on !!!
+      <div className="absolute bottom-0 mb-6 w-full">
+        <button className="bg-red-600 text-white text-xl px-3 py-2 rounded-md hover:bg-red-700">
+          Logout
         </button>
       </div>
     </div>
