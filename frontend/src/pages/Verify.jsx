@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { UserData } from "../context/userContext";
+import { UserData } from "../context/UserContext";
 import { LoadingSpinner } from "../components/loading";
 
 const Verify = () => {

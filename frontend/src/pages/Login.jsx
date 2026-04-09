@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { UserData } from "../context/userContext";
+import { UserData } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import { LoadingSpinner } from "../components/loading";
 
