@@ -45,7 +45,7 @@ export const verifyUser = async (req, res) => {
     }
 
     const token = jwt.sign({ _id: verify.user._id }, process.env.TOKEN_SEC, {
-      expiresIn: "5d",
+      expiresIn: "120d",
     });
 
     res.status(200).json({
