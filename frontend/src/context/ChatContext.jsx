@@ -1,6 +1,6 @@
 import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
-import { server } from "../main";
+import { server } from "../config";
 import toast from "react-hot-toast";
 
 const ChatContext = createContext();
