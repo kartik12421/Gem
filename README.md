@@ -1,6 +1,6 @@
-# Gem - Chat Application
+# Gem - ChatBot Application
 
-A full-stack real-time chat application built with the MERN stack (MongoDB, Express, React, Node.js).
+A full-stack real-time chatBot application built with the MERN stack (MongoDB, Express, React, Node.js).
 
 ## Project Structure
 
