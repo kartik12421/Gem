@@ -3,8 +3,10 @@ import { ChatData } from "../context/ChatContext";
 import { MdDelete } from "react-icons/md";
 import { UserData } from "../context/UserContext";
 import { LoadingSpinner } from "./loading";
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
+  const navigate = useNavigate();
   const { chats, createChat, createLod, setSelected, deleteChat } = ChatData();
 
   const { logoutHandler } = UserData();
@@ -76,7 +78,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
       <div className="absolute bottom-0 mb-6 w-full">
         <button
           className="bg-rose-700 text-white text-xl px-3 py-2 rounded-md hover:bg-rose-600"
-          onClick={logoutHandler}
+          onClick={() => logoutHandler(navigate)}
         >
           Logout
         </button>
