@@ -21,7 +21,19 @@ app.use(cors());
 app.use("/api/user", userrouter);
 app.use("/api/chat", isAuth, chatroutes);
 
-app.listen(process.env.PORT, () => {
-  console.log(`Server is listening at http://localhost:${process.env.PORT}`);
-  dbconnect();
-});
+const port = process.env.PORT || 3000;
+
+const startServer = async () => {
+  try {
+    await dbconnect();
+
+    app.listen(port, () => {
+      console.log(`Server is listening at http://localhost:${port}`);
+    });
+  } catch (error) {
+    console.error("Server failed to start:", error.message);
+    process.exit(1);
+  }
+};
+
+startServer();

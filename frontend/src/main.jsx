@@ -7,7 +7,7 @@ import { UserProvider } from "./context/UserContext.jsx";
 import { ChatProvider } from "./context/ChatContext.jsx";
 
 
-export const server = "http://localhost:3000";
+export const server = "https://gem-hsyx.onrender.com";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <StrictMode>
