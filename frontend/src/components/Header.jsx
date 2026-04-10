@@ -1,11 +1,12 @@
 import React from "react";
+import { ChatData } from "../context/ChatContext";
 
 const Header = () => {
-  const chat = [{ chat: "chat1" }];
+  const {chats} = ChatData();
   return (
     <div>
         <p className="text-lg mb-6">Hello master, how are you today...?</p>
-      {chat && chat.length === 0 && (
+      {chats && chats.length === 0 && (
         <p className="text-lg mb-6">Please create new chat...</p>
       )}
     </div>

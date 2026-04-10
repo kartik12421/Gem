@@ -12,32 +12,15 @@ export const ChatProvider = ({ children }) => {
 
   async function fetchResponse() {
     if (prompt === "") return alert("Write prompt");
+    if (!selected) return alert("Please create a chat first");
     setNewRequestLoading(true);
+    const currentPrompt = prompt;
     setPrompt("");
     try {
-      const response = await axios({
-        url: ``,
-        method: "post",
-        data: {
-          contents: [{ parts: [{ text: prompt }] }],
-        },
-      });
-
-      const message = {
-        question: prompt,
-        answer:
-          response["data"]["candidates"][0]["content"]["parts"][0]["text"],
-      };
-
-      setMessages((prev) => [...prev, message]);
-      setNewRequestLoading(false);
-
       const { data } = await axios.post(
         `${server}/api/chat/${selected}`,
         {
-          question: prompt,
-          answer:
-            response["data"]["candidates"][0]["content"]["parts"][0]["text"],
+          question: currentPrompt,
         },
         {
           headers: {
@@ -45,6 +28,9 @@ export const ChatProvider = ({ children }) => {
           },
         }
       );
+      setMessages((prev) => [...prev, data.conversation]);
+      fetchChats();
+      setNewRequestLoading(false);
     } catch (error) {
       alert("someting went wrong");
       console.log(error);
@@ -65,7 +51,7 @@ export const ChatProvider = ({ children }) => {
       });
 
       setChats(data);
-      setSelected(data[0]._id);
+      setSelected(data[0]?._id || null);
     } catch (error) {
       console.log(error);
     }
@@ -76,7 +62,7 @@ export const ChatProvider = ({ children }) => {
   async function createChat() {
     setCreateLod(true);
     try {
-      const { data } = await axios.post(
+      const data = await axios.post(
         `${server}/api/chat/new`,
         {},
         {
@@ -97,6 +83,7 @@ export const ChatProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
 
   async function fetchMessages() {
+    if (!selected) return;
     setLoading(true);
     try {
       const { data } = await axios.get(`${server}/api/chat/${selected}`, {

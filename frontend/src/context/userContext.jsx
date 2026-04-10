@@ -11,53 +11,45 @@ export const UserProvider = ({ children }) => {
   async function loginUser(email, navigate) {
     setBtnLoading(true);
     try {
-      const { data } = await axios.post(`${server}/api/user/login`, {
-        email,
-      });
+      const { data } = await axios.post(`${server}/api/user/login`, { email });
 
       toast.success(data.message);
       localStorage.setItem("verifyToken", data.verifyToken);
       navigate("/verify");
+      setBtnLoading(false);
     } catch (error) {
-      toast.error(error.response?.data?.message || "Something went wrong");
-    } finally {
+      toast.error(error.response.data.message);
       setBtnLoading(false);
     }
   }
 
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState([]);
   const [isAuth, setIsAuth] = useState(false);
 
-  async function verifyUser(otp, navigate) {
+  async function verifyUser(otp, navigate, fetchChats) {
+    const verifyToken = localStorage.getItem("verifyToken");
     setBtnLoading(true);
-    try {
-      const verifyToken = localStorage.getItem("verifyToken");
-      if (!verifyToken) {
-        toast.error("Please login first");
-        navigate("/login");
-        return;
-      }
 
+    if (!verifyToken) return toast.error("Please give token");
+    try {
       const { data } = await axios.post(`${server}/api/user/verify`, {
         otp,
         verifyToken,
       });
 
+      toast.success(data.message);
       localStorage.clear();
       localStorage.setItem("token", data.token);
-      localStorage.setItem("user", JSON.stringify(data.user));
-      localStorage.removeItem("verifyToken");
+      navigate("/");
+      setBtnLoading(false);
       setIsAuth(true);
       setUser(data.user);
-      toast.success(data.message);
-      navigate("/");
+      fetchChats();
     } catch (error) {
-      toast.error(error.response?.data?.message || "Something went wrong");
-    } finally {
+      toast.error(error.response.data.message);
       setBtnLoading(false);
     }
   }
-
   const [loading, setLoading] = useState(true);
 
   async function fetchUser() {
@@ -78,21 +70,29 @@ export const UserProvider = ({ children }) => {
     }
   }
 
+  const logoutHandler = (navigate) => {
+    localStorage.clear();
+
+    toast.success("logged out");
+    setIsAuth(false);
+    setUser([]);
+    navigate("/login");
+  };
+
   useEffect(() => {
     fetchUser();
   }, []);
-
   return (
     <UserContext.Provider
       value={{
         loginUser,
-        verifyUser,
         btnLoading,
         isAuth,
         setIsAuth,
         user,
-        setUser,
+        verifyUser,
         loading,
+        logoutHandler,
       }}
     >
       {children}

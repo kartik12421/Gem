@@ -33,27 +33,62 @@ export const getAllChats = async (req, res) => {
 
 export const addConversation = async (req, res) => {
   try {
-    const chat = await Chat.findById(req.params._id);
+    const chat = await Chat.findById(req.params.id);
 
     if (!chat) {
-      res.status(404).json({
+      return res.status(404).json({
         message: "No chat found with this id",
+      });
+    }
+
+    if (!process.env.GEMINI_API_KEY) {
+      return res.status(500).json({
+        message: "Gemini API key is missing",
+      });
+    }
+
+    const geminiResponse = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${process.env.GEMINI_API_KEY}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: req.body.question }] }],
+        }),
+      },
+    );
+
+    const geminiData = await geminiResponse.json();
+
+    if (!geminiResponse.ok) {
+      return res.status(geminiResponse.status).json({
+        message: geminiData.error?.message || "Gemini request failed",
+      });
+    }
+
+    const answer = geminiData.candidates?.[0]?.content?.parts?.[0]?.text;
+
+    if (!answer) {
+      return res.status(500).json({
+        message: "Gemini did not return an answer",
       });
     }
 
     const conversation = await Conversation.create({
       chat: chat._id,
       question: req.body.question,
-      answer: req.body.answer,
+      answer,
     });
 
-    const updatedChat = await findByIdAndUpdate(
+    const updatedChat = await Chat.findByIdAndUpdate(
       req.params.id,
       { latestMessage: req.body.question },
       { new: true },
     );
 
-    res.json(conversation, updatedChat);
+    res.json({ conversation, updatedChat });
   } catch (error) {
     res.status(500).json({
       message: error.message,
@@ -84,13 +119,13 @@ export const destroyChat = async (req, res) => {
     const chat = await Chat.findById(req.params.id);
 
     if (!chat) {
-      req.status(404).json({
+      return res.status(404).json({
         message: "chat not found with this id",
       });
     }
 
-    if (req.user.toString() !== req.user.id.toString()) {
-      req.status(404).json({
+    if (chat.user.toString() !== req.user._id.toString()) {
+      return res.status(403).json({
         message: "Unauthorized",
       });
     }
