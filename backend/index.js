@@ -11,11 +11,24 @@ const app = express();
 import userrouter from "./routes/userRoutes.js";
 import chatroutes from "./routes/chatRoutes.js";
 import { isAuth } from "./middlewares/isAuth.js";
+import { getDbStatus } from "./database/db.js";
 
 //using middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
+
+app.use((req, res, next) => {
+  const { connected, lastError } = getDbStatus();
+
+  if (connected) {
+    return next();
+  }
+
+  return res.status(503).json({
+    message: `Database unavailable. ${lastError}`,
+  });
+});
 
 //routes
 app.use("/api/user", userrouter);
@@ -24,15 +37,14 @@ app.use("/api/chat", isAuth, chatroutes);
 const port = process.env.PORT || 3000;
 
 const startServer = async () => {
+  app.listen(port, () => {
+    console.log(`Server is listening at http://localhost:${port}`);
+  });
+
   try {
     await dbconnect();
-
-    app.listen(port, () => {
-      console.log(`Server is listening at http://localhost:${port}`);
-    });
   } catch (error) {
-    console.error("Server failed to start:", error.message);
-    process.exit(1);
+    console.error("Server failed to connect to the database:", error.message);
   }
 };
 

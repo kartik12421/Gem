@@ -32,7 +32,7 @@ export const ChatProvider = ({ children }) => {
       fetchChats();
       setNewRequestLoading(false);
     } catch (error) {
-      alert("someting went wrong");
+      toast.error(error.response?.data?.message || "Something went wrong");
       console.log(error);
       setNewRequestLoading(false);
     }
@@ -51,7 +51,8 @@ export const ChatProvider = ({ children }) => {
       });
 
       setChats(data);
-      setSelected(data[0]?._id || null);
+      // Only set selected if it's not already set (on initial load)
+      setSelected((prev) => prev || data[0]?._id || null);
     } catch (error) {
       console.log(error);
     }

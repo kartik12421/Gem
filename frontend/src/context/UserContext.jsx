@@ -5,6 +5,9 @@ import { server } from "../config";
 
 const UserContext = createContext();
 
+const getErrorMessage = (error, fallback) =>
+  error?.response?.data?.message || error?.message || fallback;
+
 export const UserProvider = ({ children }) => {
   const [btnLoading, setBtnLoading] = useState(false);
 
@@ -18,7 +21,7 @@ export const UserProvider = ({ children }) => {
       navigate("/verify");
       setBtnLoading(false);
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(getErrorMessage(error, "Unable to send OTP right now"));
       setBtnLoading(false);
     }
   }
@@ -46,7 +49,7 @@ export const UserProvider = ({ children }) => {
       setUser(data.user);
       fetchChats();
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(getErrorMessage(error, "Unable to verify OTP right now"));
       setBtnLoading(false);
     }
   }
