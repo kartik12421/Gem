@@ -1,1 +1,1 @@
-export const server = "https://gem-bnyx.onrender.com";
+export const server = "https://gem-hsyx.onrender.com";
