@@ -38,24 +38,18 @@ app.use((req, res, next) => {
 app.use("/api/user", userrouter);
 app.use("/api/chat", isAuth, chatroutes);
 
-// ===== COMMENTED FOR VERCEL SERVERLESS DEPLOYMENT =====
-// For local development, uncomment the lines below
-// const port = process.env.PORT || 3000;
-//
-// const startServer = async () => {
-//   app.listen(port, () => {
-//     console.log(`Server is listening at http://localhost:${port}`);
-//   });
-//
-//   try {
-//     await dbconnect();
-//   } catch (error) {
-//     console.error("Server failed to connect to the database:", error.message);
-//   }
-// };
-//
-// startServer();
-// ===== END COMMENTED SECTION =====
+const port = process.env.PORT || 3000;
 
-// EXPORT FOR VERCEL SERVERLESS
-export default app;
+const startServer = async () => {
+  app.listen(port, () => {
+    console.log(`Server is listening at http://localhost:${port}`);
+  });
+
+  try {
+    await dbconnect();
+  } catch (error) {
+    console.error("Server failed to connect to the database:", error.message);
+  }
+};
+
+startServer();
