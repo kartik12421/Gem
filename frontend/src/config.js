@@ -1,1 +1,1 @@
-export const server = "https://gem-hsyx.onrender.com";
+export const server = "http://localhost:3000";
